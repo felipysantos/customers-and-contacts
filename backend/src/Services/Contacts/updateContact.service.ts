@@ -1,14 +1,15 @@
-import { ICreateContact } from "../../Interfaces/interfaces";
+import { ICreateContact, IUpdateContact } from "../../Interfaces/interfaces";
 import { AppDataSource } from "../../data-source";
 import { Contacts } from "../../Entities/contacts.entities";
 import { Client } from "../../Entities/client.entities";
 
-const createContactsService = async ({
+const updateContactsService = async ({
   id,
   name,
-  email,
-  cellphone,
-}: ICreateContact) => {
+  newName,
+  newEmail,
+  newCellphone,
+}: IUpdateContact) => {
   const contactRepository = AppDataSource.getRepository(Contacts);
   const clientRepository = AppDataSource.getRepository(Client);
 
@@ -21,7 +22,9 @@ const createContactsService = async ({
   const contactAlreadyExists = contacts.filter(
     (contact) => contact.name === name
   );
-
+  if (!contactAlreadyExists) {
+    throw new Error(contactAlreadyExists);
+  }
   const contactAlreadyExistsInClient = contactAlreadyExists.find(
     (client) => client.client.id === id
   );
@@ -30,19 +33,21 @@ const createContactsService = async ({
     throw new Error("Client not found");
   }
 
-  if (contactAlreadyExistsInClient) {
-    throw new Error("Contact already exists");
+  if (!contactAlreadyExistsInClient) {
+    throw new Error("Contact not exists");
   }
 
-  const newContact = new Contacts();
-  (newContact.client = account),
-    (newContact.name = name),
-    (newContact.email = email),
-    (newContact.cellphone = cellphone),
-    contactRepository.create(newContact);
-  await contactRepository.save(newContact);
+  await contactRepository.update(contactAlreadyExistsInClient!.id, {
+    name: newName,
+    email: newEmail,
+    cellphone: newCellphone
+  });
+  const updateContacts = await contactRepository.find();
+  const updatedContact = updateContacts.filter(
+    (contact) => contact.name === newName
+  );
 
-  return newContact;
+  return updatedContact;
 };
 
-export default createContactsService;
+export default updateContactsService;

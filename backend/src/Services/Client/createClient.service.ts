@@ -24,6 +24,7 @@ const createClientService = async ({
     (newClient.email = email),
     (newClient.cellphone = cellphone),
     (newClient.created_at = date),
+    (newClient.updated_at = date),
     clientRepository.create(newClient);
   await clientRepository.save(newClient);
 

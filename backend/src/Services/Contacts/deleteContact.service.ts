@@ -1,14 +1,8 @@
-import { ICreateContact } from "../../Interfaces/interfaces";
 import { AppDataSource } from "../../data-source";
-import { Contacts } from "../../Entities/contacts.entities";
 import { Client } from "../../Entities/client.entities";
+import { Contacts } from "../../Entities/contacts.entities";
 
-const createContactsService = async ({
-  id,
-  name,
-  email,
-  cellphone,
-}: ICreateContact) => {
+const deleteContactService = async (id: string, name: string) => {
   const contactRepository = AppDataSource.getRepository(Contacts);
   const clientRepository = AppDataSource.getRepository(Client);
 
@@ -30,19 +24,13 @@ const createContactsService = async ({
     throw new Error("Client not found");
   }
 
-  if (contactAlreadyExistsInClient) {
-    throw new Error("Contact already exists");
+  if (!contactAlreadyExistsInClient) {
+    throw new Error("Contact not exists");
   }
 
-  const newContact = new Contacts();
-  (newContact.client = account),
-    (newContact.name = name),
-    (newContact.email = email),
-    (newContact.cellphone = cellphone),
-    contactRepository.create(newContact);
-  await contactRepository.save(newContact);
+  await contactRepository.delete(contactAlreadyExistsInClient!.id);
 
-  return newContact;
+  return true;
 };
 
-export default createContactsService;
+export default deleteContactService;

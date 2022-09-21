@@ -7,6 +7,9 @@ export class Client {
   @PrimaryColumn("uuid")
   readonly id: string;
 
+  @OneToMany((type) => Contacts, (client) => Client)
+  contacts: Contacts[];
+
   @Column()
   name: string;
 
@@ -14,14 +17,13 @@ export class Client {
   email: string;
 
   @Column()
-  cellphone: string;
+  cellphone: number;
 
-  @Column({ type: "date" })
+  @Column()
   created_at: Date;
 
-  @OneToMany((type) => Contacts, (contacts) => contacts)
-  @JoinTable()
-  contacts: Contacts[];
+  @Column()
+  updated_at: Date;
 
   constructor() {
     if (!this.id) {

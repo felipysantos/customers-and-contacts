@@ -7,8 +7,8 @@ export class Contacts {
   @PrimaryColumn("uuid")
   readonly id: string;
 
-  @ManyToOne((type) => Client, (client) => client.id)
-  clientId: Client;
+  @ManyToOne((type) => Client, (contacts) => Contacts, { eager: true })
+  client: Client;
 
   @Column()
   name: string;
@@ -17,7 +17,7 @@ export class Contacts {
   email: string;
 
   @Column()
-  cellphone: string;
+  cellphone: number;
 
   constructor() {
     if (!this.id) {
