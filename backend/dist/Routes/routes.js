@@ -17,7 +17,7 @@ const deleteContact_controller_1 = __importDefault(require("../Controllers/Conta
 const loginClient_controller_1 = __importDefault(require("../Controllers/Client/loginClient.controller"));
 const authToken_middleware_1 = __importDefault(require("../Middlewares/authToken.middleware"));
 const isAdmin_middleware_1 = __importDefault(require("../Middlewares/isAdmin.middleware"));
-routes.get("/client/:id", authToken_middleware_1.default, isAdmin_middleware_1.default, getAllClients_controller_1.default);
+routes.get("/client/all/:id", authToken_middleware_1.default, isAdmin_middleware_1.default, getAllClients_controller_1.default);
 routes.get("/client/:id", authToken_middleware_1.default, getClientById_controller_1.default);
 routes.post("/client", createClient_controller_1.default);
 routes.patch("/client/:id", updateClient_controller_1.default);

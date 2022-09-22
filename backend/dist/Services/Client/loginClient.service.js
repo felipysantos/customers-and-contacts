@@ -53,6 +53,9 @@ const loginClientService = ({ email, password }) => __awaiter(void 0, void 0, vo
     const token = jsonwebtoken_1.default.sign({ id: clientSearch.id, name: clientSearch.name }, "SECRET_KEY", {
         expiresIn: "24h",
     });
-    return token;
+    return {
+        token: token,
+        client: { id: clientSearch.id, name: clientSearch.name },
+    };
 });
 exports.default = loginClientService;
