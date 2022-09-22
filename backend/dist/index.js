@@ -9,4 +9,4 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 const port = 3333;
 app.use(routes_1.default);
-app.listen(port, () => `Server is running ${port}`);
+app.listen(process.env.PORT || port, () => `Server is running ${port}`);

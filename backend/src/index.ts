@@ -10,4 +10,4 @@ const port = 3333;
 
 app.use(routes);
 
-app.listen(port, () => `Server is running ${port}`);
+app.listen(process.env.PORT||port, () => `Server is running ${port}`);
