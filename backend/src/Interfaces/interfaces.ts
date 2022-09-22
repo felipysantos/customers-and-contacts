@@ -2,6 +2,12 @@ export interface ICreateClient {
   name: string;
   email: string;
   cellphone: number;
+  password: string;
+  isAdmin: boolean;
+}
+export interface ILoginClient {
+  email: string;
+  password: string;
 }
 
 export interface IUpdateClient {

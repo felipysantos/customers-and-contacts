@@ -15,6 +15,12 @@ export class Client {
 
   @Column()
   email: string;
+  
+  @Column()
+  password: string;
+  
+  @Column({default: false})
+  isAdmin: boolean;
 
   @Column()
   cellphone: number;

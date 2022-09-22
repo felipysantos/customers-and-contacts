@@ -1,13 +1,17 @@
 import { ICreateClient } from "../../Interfaces/interfaces";
 import { AppDataSource } from "../../data-source";
 import { Client } from "../../Entities/client.entities";
+import * as bcrypt from "bcryptjs";
 
 const createClientService = async ({
   name,
   email,
   cellphone,
+  password,
+  isAdmin,
 }: ICreateClient) => {
   const clientRepository = AppDataSource.getRepository(Client);
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   const date = new Date();
 
@@ -22,7 +26,9 @@ const createClientService = async ({
   const newClient = new Client();
   (newClient.name = name),
     (newClient.email = email),
+    (newClient.password = hashedPassword),
     (newClient.cellphone = cellphone),
+    (newClient.isAdmin = isAdmin),
     (newClient.created_at = date),
     (newClient.updated_at = date),
     clientRepository.create(newClient);
