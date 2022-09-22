@@ -29,7 +29,10 @@ const loginClientService = async ({ email, password }: ILoginClient) => {
     }
   );
 
-  return token;
+  return {
+    token: token,
+    client: { id: clientSearch.id, name: clientSearch.name },
+  };
 };
 
 export default loginClientService;

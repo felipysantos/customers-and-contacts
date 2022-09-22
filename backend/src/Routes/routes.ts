@@ -16,7 +16,7 @@ import verifyAuthToken from "../Middlewares/authToken.middleware";
 import verifyAdminAvailability from "../Middlewares/isAdmin.middleware";
 
 routes.get(
-  "/client/:id",
+  "/client/all/:id",
   verifyAuthToken,
   verifyAdminAvailability,
   getAllClientsController
