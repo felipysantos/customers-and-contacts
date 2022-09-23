@@ -1,4 +1,5 @@
 import { VStack } from "@chakra-ui/react";
+import { UserProvider } from "./Providers/User";
 import Router from "./Services/routes";
 function App() {
   return (
@@ -9,7 +10,9 @@ function App() {
       position={"relative"}
       // bgColor={"#11052C"}
     >
+      <UserProvider>
       <Router />
+      </UserProvider>
     </VStack>
   );
 }
