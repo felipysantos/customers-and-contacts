@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 
 import { mask as masker, unMask } from "remask";
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const Signup = () => {
   const signUpSchema = yup.object().shape({

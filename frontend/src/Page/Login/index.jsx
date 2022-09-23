@@ -14,10 +14,7 @@ import {
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-
-import { mask as masker, unMask } from "remask";
-import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const Login = () => {
   const signUpSchema = yup.object().shape({
@@ -33,19 +30,7 @@ export const Login = () => {
   } = useForm({ resolver: yupResolver(signUpSchema) });
 
   const handleCreateUser = (data) => {
-    // let cell = unMask(data.cellphone);
-    // let numbers = data.cellphone.replace(/[^0-9]/g, "");
-    // delete data.confirm_password;
-    // handleSignUpAuth(data, history, toast);
-    // data.cellphone = parseInt(cell);
     console.log(data);
-  };
-
-  const [isMaskValue, setMaskValue] = useState("");
-
-  const onChangeMaskerade = (ev) => {
-    let cell = unMask(ev.target.value);
-    setMaskValue(masker(cell, ["(99) 9 9999-9999"]));
   };
 
   return (
