@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL: "http://localhost:3333/",
 });
 
-export const getClientById = ({ data, navigate, setUser }) => {
+export const getClientById = ({ data, setUser }) => {
   api
     .get(`/client/${data.id}`, {
       headers: {
@@ -13,11 +13,9 @@ export const getClientById = ({ data, navigate, setUser }) => {
     })
     .then((res) => setUser(res.data))
     .catch((err) => console.log(err));
-
-  // api.get(`/client`)
 };
 
-export const loginClient = ({ data, navigate }) => {
+export const loginClient = ({ data, setUser }) => {
   api
     .post("client/login", data)
     .then(
@@ -29,7 +27,7 @@ export const loginClient = ({ data, navigate }) => {
             id: res.data.client.id,
             token: localStorage.getItem("jwt"),
           },
-          navigate,
+          setUser,
         })
       )
     )
@@ -40,5 +38,16 @@ export const signupClient = ({ data }) => {
   api
     .post("client", data)
     .then((res) => console.log(res.data))
+    .catch((err) => console.log(err));
+};
+
+export const updateClient = ({ newData, setUser }) => {
+  api
+    .patch(`/client/${newData.id}`, newData, {
+      headers: {
+        authorization: `${newData.token}`,
+      },
+    })
+    .then((res) => setUser(res.data))
     .catch((err) => console.log(err));
 };

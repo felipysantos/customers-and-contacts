@@ -17,10 +17,9 @@ import { useForm } from "react-hook-form";
 import { signupClient } from "../../Services/api";
 import { mask as masker, unMask } from "remask";
 import { useState } from "react";
-import { NavLink  } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 export const Signup = () => {
-const history = useNavigate()
+  const history = useNavigate();
 
   const signUpSchema = yup.object().shape({
     name: yup
@@ -56,7 +55,7 @@ const history = useNavigate()
     delete data.confirm_password;
     // handleSignUpAuth(data, history, toast);
     data.cellphone = parseInt(cell);
-    
+
     signupClient({ data, history });
   };
 

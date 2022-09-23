@@ -14,11 +14,13 @@ import {
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { loginClient } from "../../Services/api";
+import { useContext } from "react";
+import { UserContext } from "../../Providers/User";
 
 export const Login = () => {
-  const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const signUpSchema = yup.object().shape({
     email: yup.string().email("Enter a valid email").required("Required field"),
@@ -33,7 +35,7 @@ export const Login = () => {
   } = useForm({ resolver: yupResolver(signUpSchema) });
 
   const handleCreateUser = (data) => {
-    loginClient({ data, navigate });
+    loginClient({ data, setUser });
   };
 
   return (
