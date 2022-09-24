@@ -9,6 +9,7 @@ import {
   Heading,
   Input,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 
 import * as yup from "yup";
@@ -17,9 +18,9 @@ import { useForm } from "react-hook-form";
 import { signupClient } from "../../Services/api";
 import { mask as masker, unMask } from "remask";
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 export const Signup = () => {
-  const history = useNavigate();
+  const toast = useToast();
 
   const signUpSchema = yup.object().shape({
     name: yup
@@ -51,12 +52,9 @@ export const Signup = () => {
 
   const handleCreateUser = (data) => {
     let cell = unMask(data.cellphone);
-    // let numbers = data.cellphone.replace(/[^0-9]/g, "");
     delete data.confirm_password;
-    // handleSignUpAuth(data, history, toast);
     data.cellphone = parseInt(cell);
-
-    signupClient({ data, history });
+    signupClient({ data, toast });
   };
 
   const [isMaskValue, setMaskValue] = useState("");
@@ -88,7 +86,6 @@ export const Signup = () => {
             gap={4}
             w={"80%"}
             maxW={"400px"}
-            // display={{ base: "none", lg: "grid" }}
           >
             <GridItem colSpan={2} rowSpan={1}>
               {/* NAME */}
@@ -219,7 +216,6 @@ export const Signup = () => {
                         : "2px solid"
                     }
                     bgColor={"#e1e1e1 "}
-                    // color={"#5e6b8a"}
                     borderRadius={4}
                     _focusWithin={{
                       border: "2px solid #5e6b8a",
@@ -236,7 +232,6 @@ export const Signup = () => {
             <GridItem colSpan={2}>
               <Button
                 bgColor={"#2d98da"}
-                // bgGradient={"linear(to-r, #45aaf2, #3867d6)"}
                 color={"#fff"}
                 _hover={{ filter: "brightness(1.1)" }}
                 type="submit"
@@ -246,10 +241,7 @@ export const Signup = () => {
               </Button>
               <Text textAlign={"center"} color={"#fff"}>
                 Already have an account?{" "}
-                <NavLink
-                  to="/login"
-                  // onClick={() => handleNavigation("/login")}
-                >
+                <NavLink to="/login">
                   <Button
                     variant={"link"}
                     color={"#fed330"}

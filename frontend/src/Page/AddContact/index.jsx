@@ -1,6 +1,5 @@
 import {
-  Avatar,
-  AvatarGroup,
+  useToast,
   Button,
   Center,
   Grid,
@@ -8,14 +7,13 @@ import {
   HStack,
   Input,
   Text,
-  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "../../Providers/User";
-import { getClientById, updateClient } from "../../Services/api";
+import { createContact, getContacts } from "../../Services/api";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -23,11 +21,16 @@ import { mask as masker, unMask } from "remask";
 
 import * as yup from "yup";
 
-export const EditProfile = () => {
+export const AddContact = () => {
   const toast = useToast();
   const signUpSchema = yup.object().shape({
-    name: yup.string(),
+    name: yup
+      .string()
+      .required("Required field")
+      .matches(/^[A-zÀ-ú]*([A-z-À-ú ]*[A-z-À-ú])$/, "Just letters"),
+
     email: yup.string().email("Enter a valid email"),
+
     cellphone: yup.string(),
   });
 
@@ -44,14 +47,14 @@ export const EditProfile = () => {
     setMaskValue(masker(cell, ["(99) 9 9999-9999"]));
   };
 
-  const { isUser, setUser } = useContext(UserContext);
+  const { isContacts, setContacts } = useContext(UserContext);
 
   const data = {
     id: localStorage.getItem("id"),
     token: localStorage.getItem("jwt"),
   };
 
-  const handleUpdateUser = (datas) => {
+  const handleCreateClient = (datas) => {
     let cell = unMask(datas.cellphone);
     let newData = {
       id: data.id,
@@ -60,22 +63,12 @@ export const EditProfile = () => {
       email: datas.email,
       cellphone: parseInt(cell),
     };
-    if (!datas.name.length) {
-      newData.name = isUser.name;
-    }
-    if (!datas.email.length) {
-      newData.email = isUser.email;
-    }
-    if (!datas.cellphone.length) {
-      newData.cellphone = parseInt(isUser.cellphone);
-    }
-
-    updateClient({ newData, setUser, toast });
+    createContact({ newData, setContacts, toast });
   };
 
   useEffect(() => {
-    getClientById({ data, setUser });
-  }, [data]);
+    getContacts({ data, isContacts, setContacts });
+  }, []);
 
   return (
     <VStack
@@ -86,10 +79,7 @@ export const EditProfile = () => {
       py={20}
       color={"#fff"}
     >
-      <AvatarGroup>
-        <Avatar size="2xl" name={isUser.name} />
-      </AvatarGroup>
-      <form onSubmit={handleSubmit(handleUpdateUser)}>
+      <form onSubmit={handleSubmit(handleCreateClient)}>
         <Grid
           pt={4}
           h="200px"
@@ -106,7 +96,7 @@ export const EditProfile = () => {
           <GridItem colSpan={3} h={10} borderBottom="1px solid #fff">
             <HStack pl={6} h={"100%"}>
               <Input
-                placeholder={isUser.name}
+                placeholder={"Junior"}
                 {...register("name")}
                 autoFocus
                 type="text"
@@ -132,7 +122,7 @@ export const EditProfile = () => {
           <GridItem colSpan={3} h={10} borderBottom="1px solid #fff">
             <HStack pl={6} h={"100%"}>
               <Input
-                placeholder={isUser.email}
+                placeholder={"email@mail.com"}
                 {...register("email")}
                 type="email"
                 variant={"unstyled"}
@@ -157,7 +147,7 @@ export const EditProfile = () => {
           <GridItem colSpan={3} h={10} borderBottom="1px solid #fff">
             <HStack pl={6} h={"100%"}>
               <Input
-                placeholder={isUser.cellphone}
+                placeholder={"(11) 9 XXXX-XXXX"}
                 {...register("cellphone")}
                 type="text"
                 variant={"unstyled"}
@@ -189,7 +179,7 @@ export const EditProfile = () => {
               >
                 Accept
               </Button>
-              <NavLink to={"/profile"} style={{ width: "40%" }}>
+              <NavLink to={"/contacts"} style={{ width: "40%" }}>
                 <Button
                   bgColor={"#eb3b5a"}
                   color={"#fff"}

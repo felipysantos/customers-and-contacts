@@ -9,6 +9,7 @@ import {
   Heading,
   Input,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 
 import * as yup from "yup";
@@ -21,7 +22,7 @@ import { UserContext } from "../../Providers/User";
 
 export const Login = () => {
   const { setUser } = useContext(UserContext);
-
+  const toast = useToast();
   const signUpSchema = yup.object().shape({
     email: yup.string().email("Enter a valid email").required("Required field"),
 
@@ -35,7 +36,7 @@ export const Login = () => {
   } = useForm({ resolver: yupResolver(signUpSchema) });
 
   const handleCreateUser = (data) => {
-    loginClient({ data, setUser });
+    loginClient({ data, setUser, toast });
   };
 
   return (
@@ -60,7 +61,6 @@ export const Login = () => {
             gap={4}
             w={"80%"}
             maxW={"400px"}
-            // display={{ base: "none", lg: "grid" }}
           >
             {/* EMAIL */}
             <GridItem colSpan={2} rowSpan={1}>
@@ -121,7 +121,6 @@ export const Login = () => {
             <GridItem colSpan={2}>
               <Button
                 bgColor={"#2d98da"}
-                // bgGradient={"linear(to-r, #45aaf2, #3867d6)"}
                 color={"#fff"}
                 _hover={{ filter: "brightness(1.1)" }}
                 type="submit"
@@ -131,10 +130,7 @@ export const Login = () => {
               </Button>
               <Text textAlign={"center"} color={"#fff"}>
                 Don't have an account?{" "}
-                <NavLink
-                  to="/signup"
-                  // onClick={() => handleNavigation("/login")}
-                >
+                <NavLink to="/signup">
                   <Button
                     variant={"link"}
                     color={"#fed330"}

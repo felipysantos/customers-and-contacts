@@ -9,13 +9,15 @@ export const UserProvider = ({ children }) => {
     token: localStorage.getItem("jwt"),
   });
 
+  const [isContacts, setContacts] = useState([]);
+
   const getLocalStorage = () => {
     setData({
       id: localStorage.getItem("id"),
       token: localStorage.getItem("jwt"),
     });
   };
-  
+
   const clearLocalStorage = () => {
     setData({
       id: localStorage.clear("id"),
@@ -31,7 +33,17 @@ export const UserProvider = ({ children }) => {
   //   };
 
   return (
-    <UserContext.Provider value={{ isUser, setUser, isData, getLocalStorage, clearLocalStorage }}>
+    <UserContext.Provider
+      value={{
+        isUser,
+        setUser,
+        isData,
+        getLocalStorage,
+        clearLocalStorage,
+        isContacts,
+        setContacts,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
