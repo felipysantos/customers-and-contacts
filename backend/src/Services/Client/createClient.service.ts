@@ -33,8 +33,14 @@ const createClientService = async ({
     (newClient.updated_at = date),
     clientRepository.create(newClient);
   await clientRepository.save(newClient);
-
-  return newClient;
+  
+  const returnClient = {
+    id: newClient.id,
+    name: newClient.name,
+    email: newClient.email
+  }
+  
+  return returnClient;
 };
 
 export default createClientService;

@@ -13,10 +13,10 @@ export class Contacts {
   @Column()
   name: string;
 
-  @Column()
+  @Column({nullable: true})
   email: string;
 
-  @Column()
+  @Column({type: "bigint", nullable: true})
   cellphone: number;
 
   constructor() {
