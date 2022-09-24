@@ -34,11 +34,11 @@ __decorate([
     __metadata("design:type", String)
 ], Contacts.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Contacts.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ type: "bigint", nullable: true }),
     __metadata("design:type", Number)
 ], Contacts.prototype, "cellphone", void 0);
 Contacts = Contacts_1 = __decorate([

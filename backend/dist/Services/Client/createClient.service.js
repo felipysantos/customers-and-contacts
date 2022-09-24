@@ -54,6 +54,11 @@ const createClientService = ({ name, email, cellphone, password, isAdmin, }) => 
         (newClient.updated_at = date),
         clientRepository.create(newClient);
     yield clientRepository.save(newClient);
-    return newClient;
+    const returnClient = {
+        id: newClient.id,
+        name: newClient.name,
+        email: newClient.email
+    };
+    return returnClient;
 });
 exports.default = createClientService;

@@ -7,7 +7,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const verifyAuthToken = (req, res, next) => {
     const token = req.headers.authorization;
     if (!token) {
-        return res.status(401).json("Unauthorized");
+        return res.status(401).json("Unauthorized! Token not found");
     }
     jsonwebtoken_1.default.verify(token, "SECRET_KEY", (error, decoded) => {
         if (error) {

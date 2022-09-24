@@ -46,7 +46,7 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Client.prototype, "isAdmin", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ type: "bigint" }),
     __metadata("design:type", Number)
 ], Client.prototype, "cellphone", void 0);
 __decorate([
