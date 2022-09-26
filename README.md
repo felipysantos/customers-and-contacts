@@ -80,8 +80,9 @@ Na tela de contatos, você visualiza a lista de contatos, podendo adicionar novo
     1. Clone o repositório
     2. Acesse a pasta **backend**
     3. Instale as dependências através do comando **yarn**
-    4. Inicie a aplicação através do comando **yarn start**
-    5. Por padrão, o servidor é executado na porta localhost:3333
+    4. Configure o arquivo .env para usuário local
+    5. Inicie a aplicação através do comando **yarn start**
+    6. Por padrão, o servidor é executado na porta localhost:3333
     
 <br><br>
 
