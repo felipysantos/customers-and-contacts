@@ -1,5 +1,5 @@
 # Customer and contacts
-Desenvolvimento de uma relação de Cliente e contatos, incluindo frontend com React e backend com NodeJS. 
+Desenvolvimento de uma relação de usuários e contatos, incluindo frontend com React e backend com NodeJS. 
 
 ## Principais linguagens e tecnologias utilizadas
 
@@ -67,6 +67,12 @@ Na tela de contatos, você visualiza a lista de contatos, podendo adicionar novo
 
 <br>
 
+- **5. Deleção de usuário DELETE/client/:id**
+
+    Essa rota recebe o id do usuário, como query params, o token(deve ser passado da seguinte forma:  headers:{authorization: `${token}`}) para validação de usuário e confirmação para deleção.
+
+<br>
+
 <br><br>
 
 - ### Instruções para uso local do Backend
@@ -81,7 +87,7 @@ Na tela de contatos, você visualiza a lista de contatos, podendo adicionar novo
 
 ### Frontend
 
-A aplicação faz uma requisição do tipo GET, buscando a lista dos usuários cadastrados no banco e renderiza na seção **Lista de cadastro**. Através do método POST na seção **Cadastro**, por meio do cliente HTTP Axios, o formulário envia as informações inseridas no mesmo, se estiverem validadas, caso contrário, será emitido um erro abaixo do campo.  
+A aplicação faz uma requisições no banco, pelo arquivo api.js, fazendo todas as requisições necessárias.  
 
 <br>
 
